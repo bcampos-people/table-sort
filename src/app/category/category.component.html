@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <h2>Search and Sort</h2>
+
+  <div class="form-group">
+    <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Search by Category">
+  </div>
+</div>
+
+{{column}} : {{isDesc}}
+
+<div class="container-fluid">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th class="pointer" (click)="sort('CategoryID')">
+          Category ID
+          <i class="pull-right glyphicon" [ngClass]="{'glyphicon-sort': column != 'CategoryID', 'glyphicon-sort-by-alphabet': (column == 'CategoryID' && isDesc), 'glyphicon-sort-by-alphabet-alt': (column == 'CategoryID' && !isDesc) }" aria-hidden="true"> </i>
+        </th>
+        <th class="pointer" (click)="sort('CategoryName')">
+          Category Name
+          <i class="pull-right glyphicon" [ngClass]="{'glyphicon-sort': column != 'CategoryName', 'glyphicon-sort-by-alphabet': (column == 'CategoryName' && isDesc), 'glyphicon-sort-by-alphabet-alt': (column == 'CategoryName' && !isDesc) }" aria-hidden="true"> </i>
+        </th>
+        <th class="pointer" (click)="sort('Description')">
+          Description
+          <i class="pull-right glyphicon" [ngClass]="{'glyphicon-sort': column != 'Description', 'glyphicon-sort-by-alphabet': (column == 'Description' && isDesc), 'glyphicon-sort-by-alphabet-alt': (column == 'Description' && !isDesc) }" aria-hidden="true"> </i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of records | category: searchText | orderBy: { property: column, direction: direction }">
+        <td>{{ item.CategoryID }}</td>
+        <td>{{ item.CategoryName }}</td>
+        <td>{{ item.Description }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
